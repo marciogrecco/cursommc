@@ -13,6 +13,7 @@ import com.modelagemsistemasjava.domain.Cidade;
 import com.modelagemsistemasjava.domain.Cliente;
 import com.modelagemsistemasjava.domain.Endereco;
 import com.modelagemsistemasjava.domain.Estado;
+import com.modelagemsistemasjava.domain.ItemPedido;
 import com.modelagemsistemasjava.domain.Pagamento;
 import com.modelagemsistemasjava.domain.PagamentoComBoleto;
 import com.modelagemsistemasjava.domain.PagamentoComCartao;
@@ -25,6 +26,7 @@ import com.modelagemsistemasjava.repository.CidadeRepository;
 import com.modelagemsistemasjava.repository.ClienteRepository;
 import com.modelagemsistemasjava.repository.EnderecoRepository;
 import com.modelagemsistemasjava.repository.EstadoRepository;
+import com.modelagemsistemasjava.repository.ItemPedidoRepository;
 import com.modelagemsistemasjava.repository.PagamentoRepository;
 import com.modelagemsistemasjava.repository.PedidoRepository;
 import com.modelagemsistemasjava.repository.ProdutoRepository;
@@ -53,6 +55,8 @@ public class ModelagemSistemasApplication implements CommandLineRunner {
 	private PedidoRepository pedidoRepository;
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -113,7 +117,18 @@ public class ModelagemSistemasApplication implements CommandLineRunner {
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
 		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
 	
-		
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.00);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.00);
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, 800.00);
+
+		ped1.getItens().addAll(Arrays.asList(ip1, ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p3.getItens().addAll(Arrays.asList(ip2));
+
+		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));	
 	}
 
 }

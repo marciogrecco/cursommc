@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.modelagemsistemasjava.enun.EstadoPagamento;
 
 @Entity
@@ -13,6 +14,13 @@ public class PagamentoComBoleto extends Pagamento {
 	private Date dataVencimento;
 	private Date dataPagamento;
 
+	@JsonFormat(pattern="dd/MM/yyyy")
+	private Date dataVencimento1;
+
+	@JsonFormat(pattern="dd/MM/yyyy")
+	private Date dataPagamento1;
+	
+	
 	public PagamentoComBoleto() {
 	}
 

@@ -35,7 +35,7 @@ public class CategoriaResources {
 	}
 
 	// Metodo para buscar as requisições
-    @SuppressWarnings("deprecation")
+	@SuppressWarnings("deprecation")
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<ResponseEntity<List<Categoria>>> findALL() throws ObjectNotFoundException {
 		ResponseEntity<List<Categoria>> obj = service.findALL();
@@ -44,7 +44,7 @@ public class CategoriaResources {
 	}
 
 	// metodo para postar uma requisição ou inserir
-    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Categoria> insert(@RequestBody Categoria obj) {
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
@@ -59,4 +59,11 @@ public class CategoriaResources {
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
 	}
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Void> delete(@PathVariable Integer id) throws ObjectNotFoundException {
+		service.delete(id);
+		return ResponseEntity.noContent().build();
+	}
+
 }

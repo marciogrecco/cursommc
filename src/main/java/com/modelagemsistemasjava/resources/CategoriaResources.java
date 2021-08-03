@@ -2,6 +2,7 @@ package com.modelagemsistemasjava.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.modelagemsistemasjava.domain.Categoria;
-import com.modelagemsistemasjava.domain.Pedido;
+import com.modelagemsistemasjava.dto.CategoriaDTO;
 import com.modelagemsistemasjava.services.CategoriaServices;
 
 import javassist.tools.rmi.ObjectNotFoundException;
@@ -26,22 +27,15 @@ public class CategoriaResources {
 	@Autowired
 	private CategoriaServices service;
 
+	
 	// busca categoria por id
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Categoria> find(@PathVariable Integer id) throws ObjectNotFoundException {
-		Categoria obj = service.find(id);
+	public ResponseEntity<Categoria> findID(@PathVariable Integer id) throws ObjectNotFoundException {
+		Categoria obj = service.findID(id);
 		return ResponseEntity.ok().body(obj);
 
 	}
 
-	// Metodo para buscar as requisições
-	@SuppressWarnings("deprecation")
-	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<ResponseEntity<List<Categoria>>> findALL() throws ObjectNotFoundException {
-		ResponseEntity<List<Categoria>> obj = service.findALL();
-		return ResponseEntity.ok().body(obj);
-
-	}
 
 	// metodo para postar uma requisição ou inserir
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -66,4 +60,10 @@ public class CategoriaResources {
 		return ResponseEntity.noContent().build();
 	}
 
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<List<CategoriaDTO>> findDTO() {
+		List<Categoria> list = service.findDTO();
+		List<CategoriaDTO> listDto = list.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
+	}
 }

@@ -19,14 +19,14 @@ public class CategoriaServices {
 	@Autowired
 	private CategoriaRepository repo;
 
-	public Categoria find(Integer id) throws ObjectNotFoundException {
+	public Categoria findID(Integer id) throws ObjectNotFoundException {
 		java.util.Optional<Categoria> obj = repo.findById(id);
 
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
 	}
 
-	public ResponseEntity<List<Categoria>> findALL() throws ObjectNotFoundException {
+	public ResponseEntity<List<Categoria>> findall() throws ObjectNotFoundException {
 		List<Categoria> obj = repo.findAll();
 		return ResponseEntity.ok(obj);
 
@@ -38,17 +38,22 @@ public class CategoriaServices {
 	}
 
 	public Categoria update(Categoria obj) throws ObjectNotFoundException {
-		find(obj.getId());
+		findID(obj.getId());
 		return repo.save(obj);
 	}
 
 	public void delete(Integer id) throws ObjectNotFoundException {
-		find(id);
+		findID(id);
 		try {
 			repo.deleteById(id);
 		} catch (DataIntegrityViolationException e) {
 			throw new DataIntegrityException("Não é possível excluir uma categoria que possui produtos");
 		}
+	}
+
+	public List<Categoria> findDTO() {
+
+		return repo.findAll();
 	}
 
 }

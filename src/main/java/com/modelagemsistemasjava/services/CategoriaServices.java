@@ -1,8 +1,6 @@
 package com.modelagemsistemasjava.services;
 
 
-
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.modelagemsistemasjava.domain.Categoria;
 import com.modelagemsistemasjava.repository.CategoriaRepository;
-
 
 import javassist.tools.rmi.ObjectNotFoundException;
 
@@ -27,10 +24,16 @@ public class CategoriaServices {
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
 	}
+
 	public ResponseEntity<List<Categoria>> findALL() throws ObjectNotFoundException {
 		List<Categoria> obj = repo.findAll();
 		return ResponseEntity.ok(obj);
-	
+
+	}
+
+	public Categoria insert(Categoria obj) {
+		obj.setId(null);
+		return repo.save(obj);
 	}
 
 }

@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.modelagemsistemasjava.domain.Categoria;
 import com.modelagemsistemasjava.domain.Cidade;
@@ -30,6 +33,8 @@ import com.modelagemsistemasjava.repository.ItemPedidoRepository;
 import com.modelagemsistemasjava.repository.PagamentoRepository;
 import com.modelagemsistemasjava.repository.PedidoRepository;
 import com.modelagemsistemasjava.repository.ProdutoRepository;
+
+
 
 @SpringBootApplication
 public class ModelagemSistemasApplication implements CommandLineRunner {

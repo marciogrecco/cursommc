@@ -1,6 +1,5 @@
 package com.modelagemsistemasjava.services;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,4 +35,8 @@ public class CategoriaServices {
 		return repo.save(obj);
 	}
 
+	public Categoria update(Categoria obj) throws ObjectNotFoundException {
+		find(obj.getId());
+		return repo.save(obj);
+	}
 }

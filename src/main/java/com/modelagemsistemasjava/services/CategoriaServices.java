@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.modelagemsistemasjava.domain.Categoria;
+import com.modelagemsistemasjava.dto.CategoriaDTO;
 import com.modelagemsistemasjava.repository.CategoriaRepository;
 import com.modelagemsistemasjava.services.exception.DataIntegrityException;
 
@@ -63,6 +64,11 @@ public class CategoriaServices {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
 
+	}
+
+	
+	public Categoria fromDTO(CategoriaDTO objDto) {
+		return new Categoria(objDto.getId(), objDto.getNome());
 	}
 
 }

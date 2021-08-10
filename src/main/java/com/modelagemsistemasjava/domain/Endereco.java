@@ -2,6 +2,7 @@ package com.modelagemsistemasjava.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,7 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 @Entity
@@ -32,8 +32,9 @@ public class Endereco  implements Serializable{
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
 
+	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name = "cidade_id")
+	@JoinColumn(name="cidade_id")
 	private Cidade cidade;
 
 	public Endereco() {

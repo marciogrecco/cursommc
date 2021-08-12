@@ -3,6 +3,7 @@ package com.modelagemsistemasjava.domain;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -86,6 +87,15 @@ public class Pedido implements Serializable {
 
 	public void setItens(Set<ItemPedido> itens) {
 		this.itens = itens;
+	}
+	
+	public double getTotal() {
+		double soma = 0.0;
+		for(ItemPedido ip:itens) {
+			soma+=ip.getValortotal();
+		}
+	   return soma;
+	
 	}
 
 	@Override

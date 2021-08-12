@@ -73,7 +73,7 @@ public class ItemPedido implements Serializable {
 	}
 
 	
-	public double getValor() {
+	public double getValortotal() {
 		
 		return preco*quantidade;
 	}
@@ -85,6 +85,10 @@ public class ItemPedido implements Serializable {
 		return result;
 	}
 
+	public double getSubtotal() {
+		return preco - desconto * quantidade;
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

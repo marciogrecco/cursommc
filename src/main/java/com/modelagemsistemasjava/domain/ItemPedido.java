@@ -33,6 +33,10 @@ public class ItemPedido implements Serializable {
 		this.preco = preco;
 	}
 
+	public double getSubTotal() {
+		return (preco - desconto) * quantidade;
+	}
+
 	@JsonIgnore
 	public Pedido getPedido() {
 		return id.getPedido();
@@ -42,12 +46,12 @@ public class ItemPedido implements Serializable {
 		id.setPedido(pedido);
 	}
 
-	public void setProduto(Produto produto) {
-		id.setProduto(produto);
-	}
-
 	public Produto getProduto() {
 		return id.getProduto();
+	}
+
+	public void setProduto(Produto produto) {
+		id.setProduto(produto);
 	}
 
 	public ItemPedidoPK getId() {
@@ -82,21 +86,12 @@ public class ItemPedido implements Serializable {
 		this.preco = preco;
 	}
 
-	public double getValortotal() {
-
-		return preco * quantidade;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
-	}
-
-	public double getSubtotal() {
-		return preco - desconto * quantidade;
 	}
 
 	@Override
@@ -114,11 +109,9 @@ public class ItemPedido implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	
-	
 	}
-		@Override
 
+	@Override
 	public String toString() {
 		NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
 		StringBuilder builder = new StringBuilder();
@@ -128,10 +121,9 @@ public class ItemPedido implements Serializable {
 		builder.append(", Preço unitário: ");
 		builder.append(nf.format(getPreco()));
 		builder.append(", Subtotal: ");
-		builder.append(nf.format(getSubtotal()));
+		builder.append(nf.format(getSubTotal()));
 		builder.append("\n");
 		return builder.toString();
 	}
-
 
 }

@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.modelagemsistemasjava.domain.Pedido;
-import com.modelagemsistemasjava.services.PedidoServices;
+import com.modelagemsistemasjava.services.PedidoService;
+
 
 
 @RestController
@@ -20,11 +21,11 @@ import com.modelagemsistemasjava.services.PedidoServices;
 public class PedidoResource {
 
 	@Autowired
-	private PedidoServices service;
+	private PedidoService service;
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) {
-		Pedido obj = service.buscar(id);
+		Pedido obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
 

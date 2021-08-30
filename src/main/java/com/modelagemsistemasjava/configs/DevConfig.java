@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.modelagemsistemasjava.services.DBService;
+import com.modelagemsistemasjava.services.EmailService;
+import com.modelagemsistemasjava.services.SmtpEmailService;
 import com.sun.el.parser.ParseException;
 
 @Configuration
@@ -29,4 +31,9 @@ public class DevConfig {
 		dbService.instantiateTestDatabase();
 		return true;
 	}
+	@Bean
+	public EmailService emailService() {
+		return new SmtpEmailService();
+	}
+
 }
